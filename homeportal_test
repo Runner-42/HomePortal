@@ -1,0 +1,13 @@
+## 
+# nginx server configuration file
+# HomePortal test environment
+##
+server {
+        listen 80;
+        server_name homeportal-test.*;
+
+        location / {
+            include proxy_params;
+            proxy_pass http://unix:/tmp/homeportal.sock;
+        }
+}
