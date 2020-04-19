@@ -1,0 +1,95 @@
+:root {
+  --bckgrnd-color: #425664;
+  --fnt-color: #f6f4f2;
+  --line-color: #c6ad8f;
+  --pen-color: #ff4f58ff;
+  --bckgrnd-color2: #89abe3ff;
+  --fnt-color2: #fcf6f5ff;
+  --bckgrnd-color3: #00539cff;
+  --fnt-color3: #ffd662ff;
+  --bckgrnd-color4: #669db3ff;
+  --fnt-color4: #f0f6f7ff;
+  --line-color4: #a89c94ff;
+  --pen-color4: #ff4f58ff;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 8vh;
+  background-color: var(--bckgrnd-color);
+}
+
+.nav-title {
+  color: var(--fnt-color);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 18px;
+}
+
+.nav-items {
+  position: absolute;
+  left: 0px;
+  height: 92vh;
+  top: 8vh;
+  background-color: var(--bckgrnd-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in;
+}
+
+.nav-items li {
+  list-style: none;
+}
+
+.nav-items a {
+  color: var(--fnt-color);
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--fnt-color);
+  margin: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateY(3px);
+}
+
+.burger .line4 {
+  opacity: 0;
+  transform: translate(0px, -9px) rotate(45deg) scale(1.2, 1.2);
+}
+
+.burger-animate .line4 {
+  opacity: 0.5;
+}
+
+.nav-active {
+  transform: translateX(0%);
+}
+
+@keyframes navItemsFade {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
