@@ -19,6 +19,8 @@
   box-sizing: border-box;
 }
 
+/* Main navigation, inculding side bar */
+
 nav {
   display: flex;
   justify-content: left;
@@ -34,10 +36,10 @@ nav {
   font-size: 18px;
 }
 
-.nav-items {
+.side-bar {
   position: absolute;
   left: 0px;
-  height: 92vh;
+  height: 88vh;
   top: 8vh;
   background-color: var(--bckgrnd-color);
   display: flex;
@@ -46,13 +48,14 @@ nav {
   width: 20%;
   transform: translateX(-100%);
   transition: transform 0.5s ease-in;
+  z-index: 1;
 }
 
-.nav-items li {
+.side-bar li {
   list-style: none;
 }
 
-.nav-items a {
+.side-bar a {
   color: var(--fnt-color);
   text-decoration: none;
   letter-spacing: 2px;
@@ -79,11 +82,11 @@ nav {
   opacity: 0.5;
 }
 
-.nav-active {
+.sidebar-active {
   transform: translateX(0%);
 }
 
-@keyframes navItemsFade {
+@keyframes sidebarItemsFade {
   from {
     opacity: 0;
     transform: translateX(-100%);
@@ -92,4 +95,40 @@ nav {
     opacity: 1;
     transform: translateX(0px);
   }
+}
+
+/* Main Window - Content will be provided by other applications */
+
+.main-window {
+  position: relative;
+  height: 88vh;
+  overflow: hidden;
+  transform: translateX(0%);
+  transition: transform 0.5s ease-in;
+}
+
+.main-window iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Footer - Mainly used to display website status */
+
+footer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 4vh;
+  background-color: var(--bckgrnd-color);
+}
+
+.footer-bar {
+  color: var(--fnt-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
 }

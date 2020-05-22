@@ -27,17 +27,28 @@
       <div class="nav-title">
         <h4>{% block navtitle %}Home Portal{% endblock %}</h4>
       </div>
-      <ul class="nav-items">
-        <li><a href="#">Domotica</a></li>
-        <li><a href="#">Kookboek</a></li>
-        <li><a href="#">Runner</a></li>
+      <ul class="side-bar">
+        <li><a href="/domotica" target="mainBlock">Domotica</a></li>
+        <li><a href="/kookboek" target="mainBlock">Kookboek</a></li>
+        <li><a href="/runner" target="mainBlock">Runner</a></li>
       </ul>
     </nav>
-
-    <script src="static/javascript/base.js"></script>
   </header>
 
-  <body></body>
+  <body>
+    <div class="main-window">
+      <iframe src="/kookboek" name="mainBlock" seamless
+        >iframe is not supported in this browser</iframe
+      >
+    </div>
 
-  <footer></footer>
+    <!-- Java script -->
+    <script src="static/javascript/base.js"></script>
+  </body>
+
+  <footer>
+    <div class="footer-bar">
+      <h5>{% block status %}Status: {% endblock %}</h5>
+    </div>
+  </footer>
 </html>

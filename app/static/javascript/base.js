@@ -1,27 +1,25 @@
 const navSlide = () => {
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-items');
-    const navItems = document.querySelectorAll('.nav-items li');
+  const burger = document.querySelector(".burger");
+  const sidebar = document.querySelector(".side-bar");
+  const sidebarItems = document.querySelectorAll(".side-bar li");
 
+  burger.addEventListener("click", () => {
+    //Toggle Nav
+    sidebar.classList.toggle("sidebar-active");
 
-    burger.addEventListener('click',()=>{
-        //Toggle Nav
-        nav.classList.toggle('nav-active');
-
-        // Animate Nav Items
-        navItems.forEach((navItem, index)=>{
-            if(navItem.style.animation) {
-                navItem.style.animation = ''
-            } else {
-                navItem.style.animation = 'navItemsFade 0.5s ease forwards $(index/5 + 2)s';
-            }
-            
-        });
-
-        // Burger Animation
-        burger.classList.toggle('burger-animate');
+    // Animate Nav Items
+    sidebarItems.forEach((sidebarItem, index) => {
+      if (sidebarItem.style.animation) {
+        sidebarItem.style.animation = "";
+      } else {
+        sidebarItem.style.animation =
+          "sidebarItemsFade 0.5s ease forwards $(index/5 + 2)s";
+      }
     });
-    
-}
+
+    // Burger Animation
+    burger.classList.toggle("burger-animate");
+  });
+};
 
 navSlide();
