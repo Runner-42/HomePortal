@@ -1,0 +1,40 @@
+:root {
+  --bckgrnd-color: #425664;
+  --fnt-color: #f6f4f2;
+  --line-color: #c6ad8f;
+  --pen-color: #ff4f58ff;
+  --bckgrnd-color1: #ffffff;
+  --fnt-color1: #000000;
+  --bckgrnd-color2: #000000;
+  --fnt-color2: #ffffff;
+  --bckgrnd-color3: #00539cff;
+  --fnt-color3: #ffd662ff;
+  --bckgrnd-color4: #669db3ff;
+  --fnt-color4: #f0f6f7ff;
+  --line-color4: #a89c94ff;
+  --pen-color4: #ff4f58ff;
+  --bckgrnd-color5: #89abe3ff;
+  --fnt-color5: #fcf6f5ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-window {
+  position: relative;
+  height: 92vh;
+  overflow: hidden;
+  transform: translateX(0%);
+  transition: transform 0.5s ease-in;
+}
+
+footer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 4vh;
+  background-color: var(--bckgrnd-color);
+}

@@ -1,0 +1,88 @@
+/* Main navigation, inculding side bar */
+
+nav {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 8vh;
+  background-color: var(--bckgrnd-color);
+}
+
+.nav-title {
+  color: var(--fnt-color);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 18px;
+}
+
+.side-bar {
+  position: absolute;
+  left: 0px;
+  height: 89vh;
+  top: 8vh;
+  background-color: var(--bckgrnd-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in;
+  z-index: 1;
+}
+
+.side-bar li {
+  list-style: none;
+}
+
+.side-bar a {
+  color: var(--fnt-color);
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--fnt-color);
+  margin: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateY(3px);
+}
+
+.burger .line4 {
+  opacity: 0;
+  transform: translate(0px, -9px) rotate(45deg) scale(1.2, 1.2);
+}
+
+.burger-animate .line4 {
+  opacity: 0.5;
+}
+
+.sidebar-active {
+  transform: translateX(0%);
+}
+
+@keyframes sidebarItemsFade {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+/* Main Window - Content will be provided by other applications */
+
+.main-window iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
