@@ -1,0 +1,18 @@
+.main-window {
+  position: relative;
+  height: 96vh;
+  overflow: hidden;
+}
+
+h1 {
+  color: red;
+}
+
+/* Footer - Mainly used to display website status */
+
+.footer-bar {
+  color: var(--fnt-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+}

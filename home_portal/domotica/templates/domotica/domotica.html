@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Base Styles -->
+    <link href={{ url_for('home_bp.static', filename='styles/base.css') }}
+    rel="stylesheet" type="text/css" /> <link href={{
+    url_for('domotica_bp.static', filename='styles/domotica.css') }}
+    rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="main-window">
+      <h1>Domotica homepage</h1>
+    </div>
+  </body>
+
+  <footer>
+    <div class="footer-bar">
+      <h5>Status: {{ domotica_site_status }}</h5>
+    </div>
+  </footer>
+</html>

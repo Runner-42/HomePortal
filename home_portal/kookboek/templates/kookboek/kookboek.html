@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Base Styles -->
+    <link href={{ url_for('home_bp.static', filename='styles/base.css') }}
+    rel="stylesheet" type="text/css" /> <link href={{
+    url_for('kookboek_bp.static', filename='styles/kookboek.css') }}
+    rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div id="wrapper" class="content-container">
+      <nav>
+        <a class="nav-menu-title" href="{{ url_for('kookboek_bp.kookboek') }}"
+          >Kookboek</a
+        >
+        <ul class="navigation-menu">
+          <li class="menu-items">
+            <a class="menu-item" href="#">Manage</a>
+            <ul class="menu-items submenu-items">
+              <li>
+                <a
+                  class="submenu-item"
+                  href="{{ url_for('kookboek_bp.manage_units') }}"
+                  >Unit</a
+                >
+              </li>
+              <li>
+                <a
+                  class="submenu-item"
+                  href="{{ url_for('kookboek_bp.manage_ingredients') }}"
+                  >Ingredient</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="menu-items">
+            <a class="menu-item" href="{{ url_for('kookboek_bp.search') }}"
+              >Search</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="content-window">
+        {% block body %} {% endblock %}
+      </div>
+      <footer>
+        <div class="footer-bar">
+          <h5>Status: {{ kookboek_site_status }}</h5>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

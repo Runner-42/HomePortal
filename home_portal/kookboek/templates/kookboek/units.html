@@ -1,0 +1,63 @@
+{% extends "kookboek/kookboek.html" %} {% block body %}
+<div class="body-container">
+  <div class="body-container-title">
+    Manage Units
+  </div>
+  <div class="body-container-content">
+    <div class="table-content">
+      <table>
+        <caption class="table-caption">
+          Units
+        </caption>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for unit_item in units_list %}
+          <tr>
+            <td>{{ unit_item.unit_name }}</td>
+            <td>{{ unit_item.unit_description }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="body-sidebar">
+      <div class="body-sidebar-top">
+        <form action="{{ url_for('kookboek_bp.manage_units') }}" method="POST">
+          {{ form_add.csrf_token }}
+          <div>
+            <ul>
+              <li>
+                {{ form_add.unit_name.label}} {{
+                form_add.unit_name(list="units_dropdown_list") }}
+                <datalist id="units_dropdown_list">
+                  {% for entry in units_list %}
+                  <option value="{{ entry.unit_name }}">
+                    {% endfor %}
+                  </option>
+                </datalist>
+              </li>
+              <li>
+                {{ form_add.unit_description.label}} {{
+                form_add.unit_description()}}
+              </li>
+            </ul>
+          </div>
+          <div class="form-button">{{ form_add.submit_add() }}</div>
+        </form>
+      </div>
+      <div class="body-sidebar-bottom">
+        <form action="{{ url_for('kookboek_bp.manage_units') }}" method="POST">
+          {{ form_del.csrf_token }}
+          <div class="form-button">{{ form_del.submit_del }}</div>
+          <div>{{ form_del.units.label }} {{ form_del.units }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
