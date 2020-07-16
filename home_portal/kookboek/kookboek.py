@@ -2,7 +2,7 @@
 from flask import Blueprint
 from flask import render_template, session, redirect, url_for, make_response
 from sqlalchemy import exc
-from kookboek_forms import AddUnitsForm, DelUnitsForm, AddIngredientsForm, DelIngredientsForm
+from .kookboek_forms import AddUnitsForm, DelUnitsForm, AddIngredientsForm, DelIngredientsForm
 from database import db, Unit, Ingredient
 
 # Blueprint Configuration
