@@ -27,6 +27,9 @@ def create_app(config_name):
         from .kookboek import kookboek
         from .domotica import domotica
 
+        # Database
+        db.create_all()     # Create all tables
+
         # Register Blueprints
         app.register_blueprint(home.home_bp, url_prefix='/')
         app.register_blueprint(runner.runner_bp, url_prefix='/runner')
