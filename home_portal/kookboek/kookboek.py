@@ -1,9 +1,14 @@
 '''Kookboek routes'''
+import sys
 from flask import Blueprint
 from flask import render_template, session, redirect, url_for, make_response
 from sqlalchemy import exc
-from .kookboek_forms import AddUnitsForm, DelUnitsForm, AddIngredientsForm, DelIngredientsForm
 from database import db, Unit, Ingredient
+parent_module = sys.modules['.'.join(__name__.split('.')[:-1]) or '__main__']
+if __name__ == '__main__' or parent_module.__name__ == '__main__':
+    from kookboek_forms import AddUnitsForm, DelUnitsForm, AddIngredientsForm, DelIngredientsForm
+else:
+    from .kookboek_forms import AddUnitsForm, DelUnitsForm, AddIngredientsForm, DelIngredientsForm
 
 # Blueprint Configuration
 kookboek_bp = Blueprint('kookboek_bp', __name__,
