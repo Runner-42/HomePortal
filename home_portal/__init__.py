@@ -14,4 +14,9 @@ def create_app(config_name):
 
     with app.app_context():
 
+        from home import home
+
+        # Register Blueprints
+        app.register_blueprint(home.home_bp, url_prefix='/')
+
         return app
