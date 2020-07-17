@@ -61,6 +61,34 @@ class Ingredient(db.Model):
             self.ingredient_unit_description)
 
 
+class Category(db.Model):
+    '''
+    The Category class defines the attributes of the category
+    table.
+    '''
+    __tablename__ = 'Categories'
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+    name = db.Column(
+        db.String(32),
+        unique=True,
+        nullable=False
+    )
+    description = db.Column(
+        db.String(128),
+        unique=False,
+        nullable=True
+    )
+
+    def __repr__(self):
+        return '<Kookboek Categories: {} - {} {}>'.format(
+            self.id,
+            self.name,
+            self.description)
+
+
 class Recipe(db.Model):
     '''
     The recipe class defines the attributes of the

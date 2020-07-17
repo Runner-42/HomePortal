@@ -4,7 +4,7 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import Length, DataRequired
 from wtforms_alchemy.fields import QuerySelectField
-from database import Unit, Ingredient
+from database import Unit, Ingredient, Category
 
 
 class AddUnitsForm(FlaskForm):
@@ -71,4 +71,36 @@ class DelIngredientsForm(FlaskForm):
     '''
     ingredients = QuerySelectField(
         query_factory=get_ingredient_list, allow_blank=True, get_label='ingredient_name')
+    submit_del = SubmitField('Remove')
+
+
+class AddCategoriesForm(FlaskForm):
+    '''
+    The AddCategoriesForm class defines the fields on the form
+    to enter new categories
+    '''
+    name = StringField('Category Name:',
+                       validators=[DataRequired(message='Provide name for the category'),
+                                   Length(max=32,
+                                          message='Max number of characters = %(max)d')])
+    description = StringField('Category Description:',
+                              validators=[Length(max=128,
+                                                 message='Maximum length = %(max)d')])
+    submit_add = SubmitField('Add')
+
+
+def get_category_list():
+    '''
+    Function used as query_factory for QuerySelectField
+    '''
+    return Category.query
+
+
+class DelCategoriesForm(FlaskForm):
+    '''
+    The DelCategoriesForm class defines a field on the form
+    representing a category name and a "delete" button
+    '''
+    categories = QuerySelectField(
+        query_factory=get_category_list, allow_blank=True, get_label='name')
     submit_del = SubmitField('Remove')

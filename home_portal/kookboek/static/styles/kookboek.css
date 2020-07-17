@@ -1,7 +1,6 @@
 html {
   height: 100%;
   width: 100%;
-  padding: 0;
 }
 body {
   margin: 0;
@@ -9,6 +8,10 @@ body {
   height: 100%;
 }
 
+#wrapper {
+  min-height: 100%;
+  position: relative;
+}
 /* .content-container {
   display: flex;
   flex-direction: column;
@@ -50,11 +53,11 @@ nav {
 
 .menu-item {
   text-decoration: none;
-  color: var(--fnt-color);
+  color: var(--fnt-color2);
 }
 
 .menu-item:hover {
-  color: var(--fnt-color2);
+  color: var(--fnt-color3);
 }
 
 .submenu-items {
@@ -65,18 +68,17 @@ nav {
   border-radius: 0px 0px 4px 4px;
 }
 
-.submenu-item {
-  text-decoration: none;
-  color: var(--fnt-color);
+.submenu-items li {
+  padding-bottom: 3px;
 }
 
-.submenu-item:hover {
+.submenu-item {
+  text-decoration: none;
   color: var(--fnt-color2);
 }
 
-#wrapper {
-  min-height: 100%;
-  position: relative;
+.submenu-item:hover {
+  color: var(--fnt-color3);
 }
 
 .content-window {
@@ -163,6 +165,13 @@ td .table-row-image {
 
 .body-sidebar-top ul li {
   padding: 10px 0px 0px 0px;
+}
+
+.body-sidebar-top select {
+  color: var(--fnt-color1);
+  background-color: var(--bckgrnd-color1);
+  border: 1px solid var(--fnt-color1);
+  min-width: 75px;
 }
 
 .body-sidebar-bottom label {

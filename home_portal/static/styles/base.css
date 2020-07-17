@@ -22,19 +22,3 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-.main-window {
-  position: relative;
-  height: 92vh;
-  overflow: hidden;
-  transform: translateX(0%);
-  transition: transform 0.5s ease-in;
-}
-
-footer {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  min-height: 4vh;
-  background-color: var(--bckgrnd-color);
-}

@@ -3,12 +3,16 @@ import sys
 from flask import Blueprint
 from flask import render_template, session, redirect, url_for, make_response
 from sqlalchemy import exc
-from database import db, Unit, Ingredient
+from database import db, Unit, Ingredient, Category
 parent_module = sys.modules['.'.join(__name__.split('.')[:-1]) or '__main__']
 if __name__ == '__main__' or parent_module.__name__ == '__main__':
-    from kookboek_forms import AddUnitsForm, DelUnitsForm, AddIngredientsForm, DelIngredientsForm
+    from kookboek_forms import AddUnitsForm, DelUnitsForm, \
+        AddIngredientsForm, DelIngredientsForm, \
+        AddCategoriesForm, DelCategoriesForm
 else:
-    from .kookboek_forms import AddUnitsForm, DelUnitsForm, AddIngredientsForm, DelIngredientsForm
+    from .kookboek_forms import AddUnitsForm, DelUnitsForm, \
+        AddIngredientsForm, DelIngredientsForm, \
+        AddCategoriesForm, DelCategoriesForm
 
 # Blueprint Configuration
 kookboek_bp = Blueprint('kookboek_bp', __name__,
@@ -171,9 +175,67 @@ def manage_ingredients():
                            kookboek_site_status=session.get('kookboek_status'))
 
 
+@kookboek_bp.route('/manage_categories', methods=['GET', 'POST'])
+def manage_categories():
+    '''Page to manage categories'''
+    form_add_categories = AddCategoriesForm()
+    form_del_categories = DelCategoriesForm()
+    categories = Category.query.order_by('name').all()
+    if form_add_categories.submit_add.data and form_add_categories.validate():
+        new_category = Category(name=form_add_categories.name.data,
+                                description=form_add_categories.description.data)
+        try:
+            db.session.add(new_category)
+            session['kookboek_status'] = str(
+                "Category {} added".format(new_category.name))
+            db.session.commit()
+        except exc.SQLAlchemyError as err:
+            db.session.rollback()
+            session['kookboek_status'] = str(
+                "-Add Error- unable to add {} in DB {}!".format(new_category.name, str(err.args)))
+            return render_template('kookboek/categories.html',
+                                   form_add=form_add_categories,
+                                   form_del=form_del_categories,
+                                   categories_list=categories,
+                                   kookboek_site_status=session.get(
+                                       'kookboek_status')
+                                   )
+        return redirect(url_for('kookboek_bp.manage_categories'))
+    if form_del_categories.submit_del.data and form_del_categories.validate():
+        try:
+            if form_del_categories.categories.data is not None:
+                session['kookboek_status'] = str("Removing category: {}".format(
+                    form_del_categories.categories.data.name))
+                db.session.delete(form_del_categories.categories.data)
+                db.session.commit()
+            else:
+                session['kookboek_status'] = str(
+                    "-Remove Error- Please select a valid Category!")
+                return render_template('kookboek/categories.html',
+                                       form_add=form_add_categories,
+                                       form_del=form_del_categories,
+                                       categories_list=categories,
+                                       kookboek_site_status=session.get('kookboek_status'))
+        except exc.SQLAlchemyError as err:
+            session['kookboek_status'] = str(
+                "-Remove Error- Unable to delete record from DB ({})!".format(str(err.args)))
+            db.session.rollback()
+            return render_template('kookboek/categories.html',
+                                   form_add=form_add_categories,
+                                   form_del=form_del_categories,
+                                   categories_list=categories,
+                                   kookboek_site_status=session.get('kookboek_status'))
+        return redirect(url_for('kookboek_bp.manage_categories'))
+    return render_template('kookboek/categories.html',
+                           form_add=form_add_categories,
+                           form_del=form_del_categories,
+                           categories_list=categories,
+                           kookboek_site_status=session.get('kookboek_status'))
+
+
 @kookboek_bp.route('/search')
 def search():
     '''Page to look for recipes'''
     status = "Browsing recipe information"
-    return render_template('kookboek/ingredients.html',
+    return render_template('kookboek/search.html',
                            kookboek_site_status=status)
