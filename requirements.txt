@@ -2,9 +2,17 @@ coverage==5.0.3
 flask==1.1.1
 flask-sqlalchemy==2.4.1
 flask-script==2.0.6
+<<<<<<< HEAD
 flask-wtf==0.14.3
+=======
+flask-rtf==0.14.3
+>>>>>>> 8c3fd62175cf811b3f4160a048fb7c39893253cf
 pytest==5.3.5
 pytest-flake8==1.0.4
 pytest-pep8==1.0.6
 selenium==3.141.0
+<<<<<<< HEAD
 wtforms-alchemy==0.17.0
+=======
+wtforms-alchemy==0.17.0
+>>>>>>> 8c3fd62175cf811b3f4160a048fb7c39893253cf
