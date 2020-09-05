@@ -23,6 +23,11 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = environ.get(
         'PORTAL_DATABASE_URI') or 'sqlite:////tmp/db_dev.sqlite3'
+    SQLALCHEMY_BINDS = {
+        'kookboek_db': SQLALCHEMY_DATABASE_URI,
+        'runner_db': environ.get(
+            'RUNNER_DATABASE_URI') or 'sqlite:////tmp/runner_db_dev.sqlite3'
+    }
     EXPORT_FOLDER = environ.get('PORTAL_EXPORT_FOLDER') or'/tmp/'
 
 
@@ -32,6 +37,11 @@ class TestingConfig(Config):
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = environ.get(
         'PORTAL_DATABASE_URI') or 'sqlite:////tmp/db_test.sqlite3'
+    SQLALCHEMY_BINDS = {
+        'kookboek_db': SQLALCHEMY_DATABASE_URI,
+        'runner_db': environ.get(
+            'RUNNER_DATABASE_URI') or 'sqlite:////tmp/runner_db_test.sqlite3'
+    }
     EXPORT_FOLDER = environ.get('PORTAL_EXPORT_FOLDER') or'/tmp/'
 
 
@@ -41,6 +51,11 @@ class ProductionConfig(Config):
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = environ.get(
         'PORTAL_DATABASE_URI') or 'sqlite:////usr/tmp/db.sqlite3'
+    SQLALCHEMY_BINDS = {
+        'kookboek_db': SQLALCHEMY_DATABASE_URI,
+        'runner_db': environ.get(
+            'RUNNER_DATABASE_URI') or 'sqlite:////tmp/runner_db.sqlite3'
+    }
     EXPORT_FOLDER = environ.get('PORTAL_EXPORT_FOLDER') or'/tmp/'
 
 

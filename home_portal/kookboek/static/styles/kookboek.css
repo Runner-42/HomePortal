@@ -1,227 +1,111 @@
 html {
-  height: 100%;
-  width: 100%;
-}
-body {
-  margin: 0;
-  padding: 0;
+  /* Following 2 lines are required to have a sticky footer */
+  position: relative;
   height: 100%;
 }
-
-#wrapper {
-  min-height: 100%;
-  position: relative;
-}
-/* .content-container {
-  display: flex;
-  flex-direction: column;
-} */
-
-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 30px;
-  background-color: var(--bckgrnd-color2);
+body,
+#main-bgimg {
+  /* Margin should be aligned with hight of the footer */
+  margin-bottom: 30px;
+  overflow: auto;
+  height: 100%;
 }
 
-.nav-menu-title {
-  padding: 0px 10px;
-  text-decoration: none;
-  font-size: 18px;
-  color: var(--fnt-color);
-}
-
-.navigation-menu {
-  display: flex;
-  min-height: 25px;
-  justify-content: end;
-  align-items: center;
-}
-
-.menu-items {
-  list-style: none;
-  padding: 0px 10px;
-  position: relative;
-}
-
-.menu-items:hover .submenu-items {
+/* Navigation bar configuration */
+.dropdown:hover > .dropdown-menu {
   display: block;
 }
 
-.menu-item {
-  text-decoration: none;
-  color: var(--fnt-color2);
+.dropdown-default {
+  background-color: #343a40;
 }
 
-.menu-item:hover {
-  color: var(--fnt-color3);
+.dropdown-default > a {
+  color: #fff;
+  background-color: #343a40;
 }
 
-.submenu-items {
-  display: none;
-  position: absolute;
-  background-color: var(--bckgrnd-color2);
-  padding: 10px 10px;
-  border-radius: 0px 0px 4px 4px;
+.dropdown-default > a:hover,
+.dropdown-default > a:focus {
+  color: #343a40;
+  background-color: #fff;
 }
 
-.submenu-items li {
-  padding-bottom: 3px;
+/* Background image configuration */
+#main-bgimg {
+  background: url(../images/kookboek-background-image.jpg) no-repeat center
+    center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: whitesmoke;
 }
 
-.submenu-item {
-  text-decoration: none;
-  color: var(--fnt-color2);
+/* main content configuration */
+.main-container {
+  color: whitesmoke;
+  padding-top: 36px;
 }
 
-.submenu-item:hover {
-  color: var(--fnt-color3);
+.top-row-main-content {
+  height: 225px;
 }
 
-.content-window {
-  overflow: auto;
+.top-left-cell {
+  background-color: lightgrey;
+  color: black;
+  opacity: 0.75;
 }
 
-/* Kookboek forms styles*/
-.body-container {
-  display: flex;
-  flex-direction: column;
+.top-center-cell {
+  background-color: whitesmoke;
+  color: black;
+  opacity: 0.75;
 }
 
-.body-container-content {
+.top-right-cell {
+  background-color: lightgrey;
+  color: black;
+  opacity: 0.75;
+}
+
+.middle-row-content {
+  min-height: 290px;
+  background-color: whitesmoke;
+  color: black;
+  opacity: 0.75;
+}
+
+.bottom-row-content {
+  min-height: 30px;
+}
+
+.form-block {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
-.body-sidebar {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 25%;
-  padding: 0px 10px 0px 0px;
+.form-item {
+  margin: 5px;
 }
 
-.body-container-title {
-  font-size: 24px;
-  align-self: center;
+.form-item > input,
+textarea,
+select {
+  background-color: black;
+  color: whitesmoke;
 }
 
-.table-content {
-  flex: 4 1 75%;
-  padding: 0px 10px;
+.form-item-label {
+  color: black;
+  padding: 0px 3px 0px 10px;
 }
 
-.table-caption {
-  font-size: 24px;
-  margin: 0px 0px 10px 0px;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-th {
-  border: 1px solid black;
-  min-width: 100px;
-  max-width: 175px;
-  padding: 0px 10px 0px 10px;
-}
-
-td {
-  border: 1px solid black;
-  padding: 0px 0px 0px 10px;
-}
-
-td .table-row-image {
-  width: 50px;
-  height: 50px;
-}
-
-.body-sidebar-top {
-  margin: 0px 0px 20px 0px;
-}
-
-.body-sidebar-top label {
-  color: var(--fnt-color1);
-  background-color: var(--bckgrnd-color1);
-}
-
-.body-sidebar-top input {
-  color: var(--fnt-color1);
-  background-color: var(--bckgrnd-color1);
-  border: 1px solid var(--fnt-color1);
-}
-
-.body-sidebar-top .form-button {
-  border: none;
-  padding: 10px;
-}
-
-.body-sidebar-top ul {
-  list-style: none;
-}
-
-.body-sidebar-top ul li {
-  padding: 10px 0px 0px 0px;
-}
-
-.body-sidebar-top select {
-  color: var(--fnt-color1);
-  background-color: var(--bckgrnd-color1);
-  border: 1px solid var(--fnt-color1);
-  min-width: 75px;
-}
-
-.body-sidebar-bottom label {
-  color: var(--fnt-color1);
-  background-color: var(--bckgrnd-color1);
-}
-
-.body-sidebar-bottom select {
-  color: var(--fnt-color1);
-  background-color: var(--bckgrnd-color1);
-  border: 1px solid var(--fnt-color1);
-  min-width: 75px;
-}
-
-.body-sidebar-bottom .form-button {
-  margin: 10px 0px;
-}
-
-#submit_add,
-#submit_del {
-  color: var(--fnt-color1);
-  background-color: var(--bckgrnd-color1);
-  border: 1px solid var(--fnt-color1);
-  border-radius: 10%;
-  padding: 0px 10px;
-  transition: 0.25s ease-in;
-  cursor: pointer;
-}
-
-#submit_add:hover,
-#submit_del:hover {
-  color: var(--fnt-color2);
-  background-color: var(--bckgrnd-color2);
-  border: 1px solid var(--fnt-color2);
-}
-
-/* Footer - Mainly used to display website status */
-
-footer {
-  height: 20px;
-  width: 100%;
-  background-color: var(--bckgrnd-color);
-  position: absolute;
-  left: 0px;
-  bottom: 0px;
-}
-
-.footer-bar {
-  color: var(--fnt-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 12px;
+#submit_btn {
+  background-color: black;
+  border: 2px solid grey;
+  color: white;
 }

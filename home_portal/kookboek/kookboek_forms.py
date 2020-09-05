@@ -1,92 +1,18 @@
 '''Kookboek forms'''
+from wtforms_alchemy.fields import QuerySelectField
+from wtforms.validators import Length, DataRequired
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import Length, DataRequired
-from wtforms_alchemy.fields import QuerySelectField
-from database import Unit, Ingredient, Category
+from wtforms import StringField, DecimalField,\
+    TextAreaField, IntegerField
+from home_portal.kookboek.database import Recipe, Category, Unit
 
 
-class AddUnitsForm(FlaskForm):
-    '''
-    The AddUnitsForm class defines the fields on the form
-    to enter new units
-    '''
-    unit_name = StringField('Unit Name:',
-                            validators=[DataRequired(message='Provide name for the unit'),
-                                        Length(max=32,
-                                               message='Max number of characters = %(max)d')])
-    unit_description = StringField('Unit Description:',
-                                   validators=[DataRequired(message='Provide description'),
-                                               Length(max=128,
-                                                      message='Maximum length = %(max)d')])
-    submit_add = SubmitField('Add')
-
-
-def get_unit_list():
+def get_recipe_list():
     '''
     Function used as query_factory for QuerySelectField
     '''
-    return Unit.query
-
-
-class DelUnitsForm(FlaskForm):
-    '''
-    The DelUnitsForm class defines a field on the form
-    representing a unit name and a "delete" button
-    '''
-    units = QuerySelectField(
-        query_factory=get_unit_list, allow_blank=True, get_label='unit_name')
-    submit_del = SubmitField('Remove')
-
-
-def get_ingredient_list():
-    '''
-    Function used as query_factory for QuerySelectField
-    '''
-    return Ingredient.query
-
-
-class AddIngredientsForm(FlaskForm):
-    '''
-    The AddIngredientsForm class defines the fields on the form
-    to enter new ingredients
-    '''
-    ingredient_name = StringField('Ingredient Name:',
-                                  validators=[DataRequired(message='Provide ingredient name'),
-                                              Length(max=32,
-                                                     message='Max number of characters = %(max)d')])
-    ingredient_unit = QuerySelectField(
-        query_factory=get_unit_list, allow_blank=False, get_label='unit_name')
-    ingredient_default_amount = IntegerField('Default Amount')
-    ingredient_picture = FileField('Picture', validators=[FileAllowed(['jpg', 'jpeg', 'png'],
-                                                                      'Images only!')])
-    submit_add = SubmitField('Add')
-
-
-class DelIngredientsForm(FlaskForm):
-    '''
-    The DelIngredientsForm class defines a field on the form
-    representing a ingredient name and a "delete" button
-    '''
-    ingredients = QuerySelectField(
-        query_factory=get_ingredient_list, allow_blank=True, get_label='ingredient_name')
-    submit_del = SubmitField('Remove')
-
-
-class AddCategoriesForm(FlaskForm):
-    '''
-    The AddCategoriesForm class defines the fields on the form
-    to enter new categories
-    '''
-    name = StringField('Category Name:',
-                       validators=[DataRequired(message='Provide name for the category'),
-                                   Length(max=32,
-                                          message='Max number of characters = %(max)d')])
-    description = StringField('Category Description:',
-                              validators=[Length(max=128,
-                                                 message='Maximum length = %(max)d')])
-    submit_add = SubmitField('Add')
+    return Recipe.query
 
 
 def get_category_list():
@@ -96,11 +22,112 @@ def get_category_list():
     return Category.query
 
 
-class DelCategoriesForm(FlaskForm):
+def get_unit_list():
     '''
-    The DelCategoriesForm class defines a field on the form
-    representing a category name and a "delete" button
+    Function used as query_factory for QuerySelectField
     '''
-    categories = QuerySelectField(
-        query_factory=get_category_list, allow_blank=True, get_label='name')
-    submit_del = SubmitField('Remove')
+    return Unit.query
+
+
+class UnitForm(FlaskForm):
+    '''
+    The  UnitForm class defines the unit specific fields
+    '''
+
+    name = StringField('Naam: ', validators=[
+        DataRequired(),
+        Length(max=64, message="Max length=%(max)d")])
+    description = TextAreaField('Beschrijving: ')
+
+    def __init__(self, unit: list = None, *args, **kwargs):
+        '''
+        Modified constructure to pre-populate the name and description field
+        to allow updates to existing records
+        '''
+        super().__init__(*args, **kwargs)
+        if unit:
+            self.name.data = unit.name
+            self.description.data = unit.description
+
+
+class CategoryForm(FlaskForm):
+    '''
+    The  CategroyForm class defines the category specific fields
+    '''
+
+    name = StringField('Naam: ', validators=[
+        DataRequired(),
+        Length(max=64, message="Max length=%(max)d")])
+    description = TextAreaField('Beschrijving: ')
+
+    def __init__(self, category: list = None, *args, **kwargs):
+        '''
+        Modified constructure to pre-populate the name and description field
+        to allow updates to existing records
+        '''
+        super().__init__(*args, **kwargs)
+        if category:
+            self.name.data = category.name
+            self.description.data = category.description
+
+
+class IngredientForm(FlaskForm):
+    '''
+    The  IngredientForm class defines the ingredient specific fields
+    '''
+    name = StringField('Naam: ', validators=[
+        DataRequired(),
+        Length(max=128, message="Max length=%(max)d")])
+    default_unit = QuerySelectField('Eenheid: ',
+                                    query_factory=get_unit_list,
+                                    allow_blank=False,
+                                    get_label='name')
+    default_amount = DecimalField('Hoeveelheid: ',
+                                  places=2)
+    picture_file_picker = FileField('Foto: ',
+                                    validators=[FileAllowed(['jpg', 'jpeg', 'png'],
+                                                            'Images only!')])
+
+    def __init__(self, ingredient: list = None, *args, **kwargs):
+        '''
+        Modified constructure to pre-populate the name and description field
+        to allow updates to existing records
+        '''
+        super().__init__(*args, **kwargs)
+        if ingredient:
+            self.name.data = ingredient.name
+            """ TO DO - Update value select field automatically """
+            self.default_unit.data = ingredient.default_unit
+            self.default_amount.data = ingredient.default_amount
+            # self.picture_file_picker.data = None
+
+
+class RecipeForm(FlaskForm):
+    '''
+    The  RecipeForm class defines the recipe specific fields
+    '''
+    id = IntegerField(id="recipe_id_field")
+    name = StringField('Naam: ', validators=[
+        DataRequired(),
+        Length(max=128, message="Max length=%(max)d")])
+    category = QuerySelectField('Categorie:',
+                                query_factory=get_category_list,
+                                allow_blank=False,
+                                get_label='name')
+    preparation = TextAreaField('Bereidingswijze:', render_kw={
+                                'cols': 22, 'rows': 5})
+    picture_file_picker = FileField('Foto:',
+                                    validators=[FileAllowed(['jpg', 'jpeg', 'png'],
+                                                            'Images only!')])
+
+    def __init__(self, recipe: list = None, *args, **kwargs):
+        '''
+        Modified constructure to pre-populate the name, category and
+        preparation fields to allow updates to existing records
+        '''
+        super().__init__(*args, **kwargs)
+        if recipe:
+            self.id.data = recipe.id
+            self.name.data = recipe.name
+            self.category.data = recipe.category
+            self.preparation.data = recipe.preparation

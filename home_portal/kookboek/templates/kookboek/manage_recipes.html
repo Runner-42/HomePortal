@@ -1,0 +1,154 @@
+{% extends "kookboek/kookboek.html" %}
+<!-- content top window left-->
+{% block top_left_content %}
+<div class="top-left-cell"></div>
+{% endblock %}
+
+<!-- content top window center-->
+{% block top_center_content %}
+<div>
+  <h3 class="text-center">Recept</h3>
+  <hr class="m-0" />
+  <div class="container p-0 m-0">
+    <form
+      action="{{ url_for('kookboek_bp.manage_recipes') }}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {{ form.csrf_token }}
+      <div class="row">
+        <div class="col-md-7">
+          <div class="row">
+            <div class="form-item-label">
+              {{ form.name.label }}
+            </div>
+            <div class="form-item">
+              {{ form.name }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-item-label">
+              {{ form.category.label }}
+            </div>
+            <div class="form-item">
+              {{ form.category }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-item-label">
+              {{ form.picture_file_picker.label }}
+            </div>
+            <div class="form-item p-0">
+              {{ form.picture_file_picker }}
+            </div>
+          </div>
+          <hr class="mb-1" />
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <button type="submit" class="btn btn-dark">
+                <i class="far fa-save"></i> Bewaar
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-item-label">
+            {{ form.preparation.label }}
+          </div>
+          <div class="form-item m-0">
+            {{ form.preparation }}
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+<!-- content top window right-->
+{% block top_right_content %}
+<div class="top-right-cell">
+  <div>
+    <div class="container p-0 m-0">
+      <form action="{{ url_for('kookboek_bp.manage_recipes') }}" method="GET">
+        {{ form.csrf_token }}
+        <!-- Display picture if there is one -->
+        {% for recipe_item in recipes_list %} {% if form.name.data ==
+        recipe_item.name %}
+        <div class="row m-3">
+          <img
+            src="{{ url_for('kookboek_bp.get_recipe_picture',
+          recipe_id=recipe_item.id) }}"
+            alt=" "
+            width="50"
+            height="50"
+          />
+        </div>
+        {% endif %} {% endfor %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<!-- content middle window center-->
+{% block middle_content %}
+<div>
+  <h3 class="text-center">Recepten</h3>
+  <hr class="m-0" />
+  <div class="container p-0 m-0">
+    <table class="table table-striped table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="col-sm-2 text-center">Naam</th>
+          <th scope="col" class="col-sm-1 text-center">Categorie</th>
+          <th scope="col" class="col-sm-3 text-center">Bereidingswijze</th>
+          <th scope="col" class="col-sm-1 text-center">Foto</th>
+          <th scope="col" class="col-sm-3 text-center">Actie</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recipe_item in recipes_list %}
+        <tr>
+          <td scope="row"><small>{{ recipe_item.name }}</small></td>
+          <td scope="row"><small>{{ recipe_item.category }}</small></td>
+          <td scope="row">
+            <small>{{ recipe_item.preparation }}</small>
+          </td>
+          <td class="text-center">
+            <img
+              src="{{ url_for('kookboek_bp.get_recipe_picture',
+                  recipe_id=recipe_item.id) }}"
+              alt="-"
+              width="50"
+              height="50"
+            />
+          </td>
+          <td scope="row" class="text-center">
+            <a
+              class="btn btn-dark btn-sm py-0"
+              href="{{ url_for('kookboek_bp.edit_recipe',recipe_id=recipe_item.id) }}"
+              role="button"
+              ><small><i class="fas fa-pencil-alt"></i> Edit</small></a
+            >
+            <a
+              class="btn btn-danger btn-sm py-0"
+              href="{{ url_for('kookboek_bp.delete_recipe',recipe_id=recipe_item.id) }}"
+              role="button"
+              ><small><i class="far fa-trash-alt"></i> Del</small>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+<!-- content bottom window (Status bar)-->
+{% block bottom_content %}
+<div class="bottom-row-content">
+  <h5>Status: {{ kookboek_site_status }}</h5>
+</div>
+{% endblock %}

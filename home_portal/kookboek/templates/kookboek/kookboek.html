@@ -1,61 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Base Styles -->
-    <link href={{ url_for('home_bp.static', filename='styles/base.css') }}
-    rel="stylesheet" type="text/css" /> <link href={{
-    url_for('kookboek_bp.static', filename='styles/kookboek.css') }}
-    rel="stylesheet" type="text/css" />
+    <!-- Required meta tags for using bootstrap -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap styles -->
+    <link href={{ url_for('home_bp.static', filename='styles/bootstrap.min.css')
+    }} rel="stylesheet" type="text/css" />
+    <!-- Kookboek specific Styles, extending the bootstrap styles -->
+    <link href={{ url_for('kookboek_bp.static', filename='styles/kookboek.css')
+    }} rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/7660ebed3c.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
-    <div id="wrapper" class="content-container">
-      <nav>
-        <a class="nav-menu-title" href="{{ url_for('kookboek_bp.kookboek') }}"
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-md py-0 navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a
+          class="navbar-brand py-0"
+          href="{{ url_for('kookboek_bp.kookboek') }}"
           >Kookboek</a
         >
-        <ul class="navigation-menu">
-          <li class="menu-items">
-            <a class="menu-item" href="#">Manage</a>
-            <ul class="menu-items submenu-items">
-              <li>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="False"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link py-0 dropdown-toggle"
+                href="#"
+                id="dropdown-administratie"
+                data-toggle="dropdown"
+                aria-haspopup="True"
+                aria-expanded="False"
+                >Administratie
+              </a>
+              <div
+                class="dropdown-menu dropdown-default"
+                aria-labelledby="dropdown-administratie"
+              >
                 <a
-                  class="submenu-item"
+                  class="dropdown-item"
                   href="{{ url_for('kookboek_bp.manage_units') }}"
-                  >Unit</a
+                  >Eenheid</a
                 >
-              </li>
-              <li>
                 <a
-                  class="submenu-item"
+                  class="dropdown-item"
+                  href="{{ url_for('kookboek_bp.manage_categories') }}"
+                  >Categorie</a
+                >
+                <a
+                  class="dropdown-item"
                   href="{{ url_for('kookboek_bp.manage_ingredients') }}"
                   >Ingredient</a
                 >
-              </li>
-              <li>
                 <a
-                  class="submenu-item"
-                  href="{{ url_for('kookboek_bp.manage_categories') }}"
-                  >Category</a
+                  class="dropdown-item"
+                  href="{{ url_for('kookboek_bp.manage_recipes') }}"
+                  >Recept</a
                 >
-              </li>
-            </ul>
-          </li>
-          <li class="menu-items">
-            <a class="menu-item" href="{{ url_for('kookboek_bp.search') }}"
-              >Search</a
-            >
-          </li>
-        </ul>
-      </nav>
-      <div class="content-window">
-        {% block body %} {% endblock %}
-      </div>
-      <footer>
-        <div class="footer-bar">
-          <h5>Status: {{ kookboek_site_status }}</h5>
+              </div>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link py-0" href="#">Zoeken</a>
+            </li>
+          </ul>
         </div>
-      </footer>
+      </div>
+    </nav>
+
+    <!-- background image -->
+    <div id="main-bgimg" class="view">
+      <div class="mask rgba-grey-strong">
+        <!-- Main content section -->
+        <div class="container main-container">
+          <div class="row top-row-main-content">
+            <div class="col-md-2 top-left-cell">
+              {% block top_left_content %} {% endblock %}
+            </div>
+            <div class="col-md-8 top-center-cell">
+              {% block top_center_content %} {% endblock %}
+            </div>
+            <div class="col-md-2 top-right-cell">
+              {% block top_right_content %} {% endblock %}
+            </div>
+          </div>
+          <div class="row justify-content-center middle-row-content">
+            <div class="col-md-11">
+              {% block middle_content %} {% endblock %}
+            </div>
+          </div>
+          <div class="row bottom-row-content bg-dark pl-2">
+            {% block bottom_content %} {% endblock %}
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Java scripts -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('home_bp.static', filename='javascript/bootstrap.bundle.min.js') }}"></script>
   </body>
 </html>

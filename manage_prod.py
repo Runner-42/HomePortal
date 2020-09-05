@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 import os
-from app import create_app
 from flask_script import Manager, Shell
+from home_portal import create_app
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-manager = Manager(app)
+homeportal = create_app(os.getenv('FLASK_CONFIG') or 'default')
+manager = Manager(homeportal)
 
 
 def make_shell_context():
-    return dict(app=app)
+    return dict(app=homeportal)
 
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
