@@ -1,0 +1,42 @@
+{% extends "kookboek/kookboek.html" %} {% block body %}
+<div>
+  Hier moet de Recepten informatie komen
+</div>
+<div>
+  <table>
+    <caption class="table-caption">
+      Ingredienten
+    </caption>
+    <thead>
+      <tr>
+        <th>Naam</th>
+        <th>Hoeveelheid</th>
+        <th>Eenheid</th>
+        <th>Foto</th>
+        <th>Actie</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ingredient in ingredients_list %}
+      <tr>
+        <td>{{ ingredient.name }}</td>
+        <td>{{ ingredient.amount }}</td>
+        <td>{{ ingredient.unit }}</td>
+        <td>
+          td<img
+            class="table-row-image"
+            src="{{ url_for('kookboek_bp.get_ingredient_picture',
+                 id_ingredient = ingredient_item.ingredient_id) }}"
+            alt="None"
+          />
+        </td>
+        <td>
+          <a href="#">Wijzig</a>
+          <a href="#">Verwijder</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
