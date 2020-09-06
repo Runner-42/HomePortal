@@ -6,6 +6,9 @@ basedir = path.abspath(path.dirname(__file__))
 
 
 class Config:
+    '''
+    Common configuration parameters
+    '''
     SECRET_KEY = environ.get('SECRET_KEY') or 'my_hard_to_guess_secret_key'
     WTF_CSRF_ENABLED = True
 
@@ -18,6 +21,9 @@ class Config:
 
 
 class DevelopmentConfig(Config):
+    '''
+    Development environment specific parameters
+    '''
     FLASK_ENV = 'development'
     DEBUG = True
     SQLALCHEMY_ECHO = True
@@ -32,6 +38,9 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    '''
+    Test environment specific parameters
+    '''
     FLASK_ENV = 'testing'
     DEBUG = True
     SQLALCHEMY_ECHO = True
@@ -46,6 +55,9 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
+    '''
+    Production environment specific parameters
+    '''
     FLASK_ENV = 'production'
     DEBUG = False
     SQLALCHEMY_ECHO = False
