@@ -1,0 +1,22 @@
+## 
+# nginx server configuration file
+# HomePortal production environment
+##
+server {
+        listen 80;
+        server_name homeportal homeportal.*;
+        return 301 https://$server_name$request_uri;
+}
+
+server {
+        listen 443 ssl;
+        server_name homeportal homeportal.*;
+
+        ssl_certificate /etc/ssl/certs/homeportal.crt;
+        ssl_certificate_key /etc/ssl/private/homeportal.key;
+
+        location / {
+            include proxy_params;
+            proxy_pass http://unix:/tmp/homeportal.sock;
+        }
+}
