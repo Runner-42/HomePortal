@@ -1,5 +1,5 @@
 coverage==5.0.3
-flask==1.1.1
+flask==2.3.2
 flask-sqlalchemy==2.4.1
 flask-script==2.0.6
 flask-wtf==0.14.3
